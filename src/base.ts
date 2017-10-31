@@ -36,11 +36,11 @@ export class Elem extends Base {
 
 }
 
-export class Placeholder extends Base  {
+export class Placeholder extends Base {
     parent: Elem;
 }
 
-export class TextNode extends Base  {
+export class TextNode extends Base {
     parent: Elem;
     text: string;
 

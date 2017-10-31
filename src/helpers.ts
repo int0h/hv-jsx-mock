@@ -1,4 +1,4 @@
-import {Elem, Props, Placeholder, Node, TextNode} from './base';
+import {Elem, Placeholder, Node, TextNode} from './base';
 
 export interface Meta {}
 
@@ -39,6 +39,10 @@ export function createTextNode(meta: Meta, text: string): Node {
 }
 
 export function getData(meta: Meta, elem: Node): Data {
+    if (!elem) {
+        return {};
+    }
+
     return elem.data;
 }
 
@@ -61,6 +65,9 @@ export function replace(meta: Meta, oldElem: Node, newElm: Node): any {
 }
 
 export function setData(meta: Meta, elem: Node, value: Data) {
+    if (!elem) {
+        throw new Error('provided parameter is not valid Node');
+    }
     elem.data = value;
 }
 
