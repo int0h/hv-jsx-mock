@@ -14,7 +14,7 @@ import {
 } from './helpers';
 
 
-export const dom: Target<Node, any, number, any> = {
+export const mock: Target<Node, any, number, any> = {
     append,
     closest,
     create,
