@@ -26,8 +26,8 @@ export function closest(meta: Meta, from: Node, matcher: (elem: Node) => boolean
     return null;
 }
 
-export function create(meta: Meta, type: string): [Node, Meta] {
-    return [new Elem(type), {}];
+export function create(meta: Meta, type: string): [Node, Meta, Meta] {
+    return [new Elem(type), {}, {}];
 }
 
 export function createPlaceholder(meta: Meta): Node {
@@ -52,7 +52,7 @@ export function replace(meta: Meta, oldElem: Node, newElm: Node): any {
     }
 
     if (!newElm) {
-        oldElem.remove();
+        newElm = new Placeholder();
     }
 
     const parent = oldElem.parent;
@@ -61,7 +61,23 @@ export function replace(meta: Meta, oldElem: Node, newElm: Node): any {
         throw new Error('cannot replace dom');
     }
 
-    parent.replaceChild(newElm as Elem, oldElem as Elem);
+    parent.replaceChild(oldElem as Elem, newElm as Elem);
+}
+
+export function replaceSequence(meta: Meta, oldElems: Node[], newElems: Node[]): any {
+    const oldStart = oldElems[0];
+
+    if (!oldStart || newElems.length <= 0) {
+        throw new Error('empty nodeset');
+    }
+
+    const parent = oldStart.parent;
+
+    if (!parent) {
+        throw new Error('cannot replace dom');
+    }
+
+    parent.replaceChildren(oldElems, newElems);
 }
 
 export function setData(meta: Meta, elem: Node, value: Data) {
